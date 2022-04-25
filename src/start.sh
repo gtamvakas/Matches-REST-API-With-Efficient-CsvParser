@@ -17,4 +17,7 @@ while ! docker exec src_postgres_1 pg_isready -q  > /dev/null 2> /dev/null; do
     ((count++))
 done
 
+docker exec src_postgres_1 psql -U postgres -f /CREATE/create-database.sql
+docker exec src_postgres_1 psql -U postgres -d matchstats -f /CREATE/create-tables.sql
+
 docker exec src_postgres_1 psql -U postgres -c "alter user postgres with password 'password';" &
